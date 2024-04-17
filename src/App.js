@@ -3,12 +3,12 @@ import { BrowserRouter as Router, Route, Switch, Routes } from 'react-router-dom
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './theme';
 import Navbar from './components/common/Navbar';
+import Sidebar from './components/common/Sidebar';
 import Home from './pages/Home';
 import Jobs from './pages/Jobs';
 import JobDetailsPage from './pages/JobDetailsPage';
 import Categories from './pages/Categories';
 import Users from './pages/Users';
-import Sidebar from './components/common/Sidebar';
 
 function App() {
   return (
