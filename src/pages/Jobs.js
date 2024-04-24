@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, CircularProgress } from '@material-ui/core';
-
 import { getAllJobs } from '../api/jobApi';
 import JobList from '../components/job/JobList';
 
@@ -34,6 +33,10 @@ function Jobs() {
       ) : error ? (
         <Typography variant="body1" align="center" color="error">
           Error: {error}
+        </Typography>
+      ) : jobs.length === 0 ? (
+        <Typography variant="body1" align="center">
+          No jobs available
         </Typography>
       ) : (
         <JobList jobs={jobs} />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './theme';
 import Navbar from './components/common/Navbar';
@@ -17,11 +17,11 @@ function App() {
         <Navbar /> 
         <Sidebar />
         <Routes>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/jobs" component={Jobs} />
-          <Route exact path="/jobs/:id" component={JobDetailsPage} />
-          <Route exact path="/categories" component={Categories} />
-          <Route exact path="/users" component={Users} />
+          <Route path="/" element={<Home />} />
+          <Route path="/jobs" element={<Jobs />} />
+          <Route path="/jobs/:id" element={<JobDetailsPage />} />
+          <Route path="/categories" element={<Categories />} />
+          <Route path="/users" element={<Users />} />
         </Routes>
       </Router>
     </ThemeProvider>
