@@ -11,19 +11,35 @@ import Categories from './pages/Categories';
 import Users from './pages/Users';
 import Login from './pages/Login';
 
+function withLayout(Component) {
+  return function WithLayout(props) {
+    return (
+      <>
+        <Navbar />
+        <Sidebar />
+        <Component {...props} />
+      </>
+    );
+  };
+}
+
+const HomeWithLayout = withLayout(Home);
+const JobsWithLayout = withLayout(Jobs);
+const JobDetailsPageWithLayout = withLayout(JobDetailsPage);
+const CategoriesWithLayout = withLayout(Categories);
+const UsersWithLayout = withLayout(Users);
+
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <Navbar /> 
-        <Sidebar />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<HomeWithLayout />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/jobs" element={<Jobs />} />
-          <Route path="/jobs/:id" element={<JobDetailsPage />} />
-          <Route path="/categories" element={<Categories />} />
-          <Route path="/users" element={<Users />} />
+          <Route path="/jobs" element={<JobsWithLayout />} />
+          <Route path="/jobs/:id" element={<JobDetailsPageWithLayout />} />
+          <Route path="/categories" element={<CategoriesWithLayout />} />
+          <Route path="/users" element={<UsersWithLayout />} />
         </Routes>
       </Router>
     </ThemeProvider>

@@ -1,49 +1,89 @@
-import React from 'react';
-import { Drawer, List, ListItem, ListItemText, makeStyles } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Drawer, List, ListItem, ListItemText, IconButton, styled, Divider } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { CategoryOutlined, CategoryRounded, ChevronLeft, ChevronRight, FolderRounded, GroupRounded, HomeRounded, VerifiedUserRounded, WorkRounded } from '@material-ui/icons';
 
-const drawerWidth = 240;
+const CustomIconButton = styled(IconButton)(({ theme }) => ({
+  marginRight: theme.spacing(2),
+}));
 
-const useStyles = makeStyles((theme) => ({
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  toolbar: theme.mixins.toolbar,
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+  padding: theme.spacing(0, 1),
+  ...theme.mixins.toolbar,
 }));
 
 function Sidebar() {
-  const classes = useStyles();
+  const [open, setOpen] = useState(false);
+
+  const handleToggle = () => {
+    setOpen(!open);
+  };
+
+  const CustomDrawer = styled(Drawer)(({ theme }) => ({
+    '& .MuiDrawer-paper': {
+      width: open ? 240 : 80,
+    },
+  }));
 
   return (
-    <Drawer
-      className={classes.drawer}
-      variant="permanent"
-      classes={{
-        paper: classes.drawerPaper,
-      }}
-      anchor="left"
-    >
-      <div className={classes.toolbar} />
+    <CustomDrawer variant="permanent" open={open}>
+      <DrawerHeader>
+        <CustomIconButton onClick={handleToggle}>
+          {open ? <ChevronLeft /> : <ChevronRight />}
+        </CustomIconButton>
+      </DrawerHeader>
+      <Divider />
       <List>
         <ListItem button component={Link} to="/">
-          <ListItemText primary="Home" />
+          {open ? (
+            <>
+              <ListItemText primary="Home" />
+            </>
+          ) : (
+            <>
+              <HomeRounded />
+            </>
+          )}
         </ListItem>
         <ListItem button component={Link} to="/jobs">
-          <ListItemText primary="Jobs" />
+          {open ? (
+            <>
+              <ListItemText primary="Jobs" />
+            </>
+          ) : (
+            <>
+              <WorkRounded />
+            </>
+          )}
         </ListItem>
         <ListItem button component={Link} to="/categories">
-          <ListItemText primary="Categories" />
+          {open ? (
+            <>
+              <ListItemText primary="Categories" />
+            </>
+          ) : (
+            <>
+              <CategoryRounded />
+            </>
+          )}
         </ListItem>
         <ListItem button component={Link} to="/users">
-          <ListItemText primary="Users" />
+          {open ? (
+            <>
+              <ListItemText primary="Users" />
+            </>
+          ) : (
+            <>
+              <GroupRounded />
+            </>
+          )}
         </ListItem>
-        
       </List>
-    </Drawer>
+      <Divider />
+    </CustomDrawer>
   );
 }
 
