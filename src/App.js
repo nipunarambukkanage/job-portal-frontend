@@ -9,6 +9,7 @@ import Jobs from './pages/Jobs';
 import JobDetailsPage from './pages/JobDetailsPage';
 import Categories from './pages/Categories';
 import Users from './pages/Users';
+import Login from './pages/Login';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Sidebar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/jobs" element={<Jobs />} />
           <Route path="/jobs/:id" element={<JobDetailsPage />} />
           <Route path="/categories" element={<Categories />} />
