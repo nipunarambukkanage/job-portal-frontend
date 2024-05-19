@@ -5,6 +5,11 @@ import { Link } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
+    textAlign: 'right',
+    marginRight : '500px' // TODO : Make this margin Dynamic as the user click the arrow in left sidebar
+  },
+  toolbar: {
+    justifyContent: 'space-between', // Align items to the right
   },
 }));
 
@@ -13,7 +18,7 @@ function Navbar() {
 
   return (
     <AppBar position="static">
-      <Toolbar>
+      <Toolbar className={classes.Toolbar}>
         <Typography variant="h6" className={classes.title}>
           Job Portal
         </Typography>
