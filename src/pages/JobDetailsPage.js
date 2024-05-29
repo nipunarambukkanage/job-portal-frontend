@@ -10,6 +10,15 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
+  jobTitle: {
+    padding: theme.spacing(2), // Adding padding to jobTitle class
+  },
+  jobsTable: {
+    marginLeft: theme.spacing(2), // Adding dynamic left margin to jobsTable class
+  },
+  errorJobs: {
+    padding: theme.spacing(2), // Adding padding to errorJobs class
+  },
 }));
 
 function JobDetailsPage() {
@@ -36,19 +45,25 @@ function JobDetailsPage() {
 
   return (
     <div>
-      <Typography variant="h4" align="center" gutterBottom>
-        Job Details
-      </Typography>
+      <div className={classes.jobTitle}> 
+        <Typography variant="h4" align="center" gutterBottom>
+          Job Details
+        </Typography>
+      </div>
       {loading ? (
         <CircularProgress />
       ) : error ? (
-        <Typography variant="body1" align="center" color="error">
-          Error: {error}
-        </Typography>
+        <div className={classes.errorJobs}> 
+          <Typography variant="body1" align="center" color="error">
+            Error: {error}
+          </Typography>
+        </div>
       ) : (
-        <Paper className={classes.paper}>
-          <JobDetails job={job} />
-        </Paper>
+        <div className={classes.jobsTable}> 
+          <Paper className={classes.paper}>
+            <JobDetails job={job} />
+          </Paper>
+        </div>
       )}
     </div>
   );
