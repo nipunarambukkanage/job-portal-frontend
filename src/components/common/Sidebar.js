@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Drawer, List, ListItem, ListItemText, IconButton, styled, Divider } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { CategoryOutlined, CategoryRounded, ChevronLeft, ChevronRight, FolderRounded, GroupRounded, HomeRounded, VerifiedUserRounded, WorkRounded } from '@material-ui/icons';
+import { ChevronLeft, ChevronRight, HomeRounded, WorkRounded, CategoryRounded, GroupRounded } from '@material-ui/icons';
+import { toggleSidebar } from '../../redux/actions/sidebarActions';
 
 const CustomIconButton = styled(IconButton)(({ theme }) => ({
   marginRight: theme.spacing(2),
@@ -15,71 +17,60 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
+const CustomDrawer = styled(({ open, ...other }) => <Drawer {...other} />)(({ theme, open }) => ({
+  '& .MuiDrawer-paper': {
+    width: open ? 170 : 80,
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    overflowX: 'hidden',
+  },
+}));
+
+const ListItemContent = styled('div')(({ theme }) => ({
+  height: 40,
+  paddingLeft : '10px',
+  display: 'flex',
+  alignItems: 'center',
+}));
+
 function Sidebar() {
-  const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+  const isOpen = useSelector(state => state.sidebar.isOpen);
 
   const handleToggle = () => {
-    setOpen(!open);
+    dispatch(toggleSidebar());
   };
 
-  const CustomDrawer = styled(Drawer)(({ theme }) => ({
-    '& .MuiDrawer-paper': {
-      width: open ? 240 : 80,
-    },
-  }));
-
   return (
-    <CustomDrawer variant="permanent" open={open}>
+    <CustomDrawer variant="permanent" open={isOpen}>
       <DrawerHeader>
         <CustomIconButton onClick={handleToggle}>
-          {open ? <ChevronLeft /> : <ChevronRight />}
+          {isOpen ? <ChevronLeft /> : <ChevronRight />}
         </CustomIconButton>
       </DrawerHeader>
       <Divider />
       <List>
         <ListItem button component={Link} to="/">
-          {open ? (
-            <>
-              <ListItemText primary="Home" />
-            </>
-          ) : (
-            <>
-              <HomeRounded />
-            </>
-          )}
+          <ListItemContent>
+            {isOpen ? <><HomeRounded /><ListItemText primary="Home" /></> : <HomeRounded />}
+          </ListItemContent>
         </ListItem>
         <ListItem button component={Link} to="/jobs">
-          {open ? (
-            <>
-              <ListItemText primary="Jobs" />
-            </>
-          ) : (
-            <>
-              <WorkRounded />
-            </>
-          )}
+          <ListItemContent>
+            {isOpen ? <><WorkRounded /><ListItemText primary="Jobs" /></> : <WorkRounded />}
+          </ListItemContent>
         </ListItem>
         <ListItem button component={Link} to="/categories">
-          {open ? (
-            <>
-              <ListItemText primary="Categories" />
-            </>
-          ) : (
-            <>
-              <CategoryRounded />
-            </>
-          )}
+          <ListItemContent>
+            {isOpen ? <><CategoryRounded /><ListItemText primary="Categories" /></> : <CategoryRounded />}
+          </ListItemContent>
         </ListItem>
         <ListItem button component={Link} to="/users">
-          {open ? (
-            <>
-              <ListItemText primary="Users" />
-            </>
-          ) : (
-            <>
-              <GroupRounded />
-            </>
-          )}
+          <ListItemContent>
+            {isOpen ? <><GroupRounded /><ListItemText primary="Users" /></> : <GroupRounded />}
+          </ListItemContent>
         </ListItem>
       </List>
       <Divider />

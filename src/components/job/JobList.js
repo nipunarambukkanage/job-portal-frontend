@@ -1,40 +1,42 @@
 import React from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, makeStyles } from '@material-ui/core';
 import { JobItemActions } from './JobItemActions';
+import { useSelector } from 'react-redux';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   // Define styles for the component
-  jobListContainer: {
-    marginLeft: '275px', // TODO : This margin should be dynamic. You can get the state of sidebar open/close and set the margin accordingly
+  jobListContainerOpen: {
+    marginLeft:  '190px', // Set margin dynamically based on sidebar state
+    transition: 'margin-left 0.3s ease', // Smooth transition for the margin change
+  },
+  jobListContainerClosed: {
+    marginLeft:  '100px', // Set margin dynamically based on sidebar state
+    transition: 'margin-left 0.3s ease', // Smooth transition for the margin change
   },
   tableContainer: {
     marginTop: 20,
     overflowX: 'auto',
-    //maxWidth: 'calc(100% - 240px)', //TODO : Set maxWidth dynamically by checking whether the sidebar is open or close
-    //marginLeft: 0,
   },
   tableCell: {
-    maxWidth: "50px", // Set maximum width for table cells
-    //overflow: 'hidden',
+    maxWidth: '50px', // Set maximum width for table cells
     wordWrap: 'break-word',
     justifyContent: 'center', // Center content horizontally
     alignItems: 'center', // Center content vertically
-    //textOverflow: 'ellipsis',
-    //whiteSpace: 'nowrap',
   },
   actionCell: {
     paddingRight: '4px', // Add padding only to the right side
   },
-
-});
+}));
 
 function JobList({ jobs, onEdit, onDelete }) {
-  const classes = useStyles();
+  const isSidebarOpen = useSelector((state) => state.sidebar.isOpen);
+  console.log('isSidebarOpen*****', isSidebarOpen);
+  const classes = useStyles({ isSidebarOpen });
 
   return (
-    <div className={classes.jobListContainer}> 
+    <div className={isSidebarOpen ? classes.jobListContainerOpen : classes.jobListContainerClosed}> 
       <TableContainer component={Paper} className={classes.tableContainer}>
-        <Table className={classes.table}>
+        <Table>
           <TableHead>
             <TableRow>
               <TableCell className={classes.tableCell}>Title</TableCell>
