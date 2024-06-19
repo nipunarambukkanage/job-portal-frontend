@@ -35,6 +35,10 @@ const ListItemContent = styled('div')(({ theme }) => ({
   alignItems: 'center',
 }));
 
+const ListItemIcon = styled('div')(({ theme }) => ({
+  paddingRight : '13px'
+}));
+
 function Sidebar() {
   const dispatch = useDispatch();
   const isOpen = useSelector(state => state.sidebar.isOpen);
@@ -54,22 +58,22 @@ function Sidebar() {
       <List>
         <ListItem button component={Link} to="/">
           <ListItemContent>
-            {isOpen ? <><HomeRounded /><ListItemText primary="Home" /></> : <HomeRounded />}
+            {isOpen ? <><ListItemIcon><HomeRounded /></ListItemIcon><ListItemText primary="Home" /></> : <HomeRounded />}
           </ListItemContent>
         </ListItem>
         <ListItem button component={Link} to="/jobs">
           <ListItemContent>
-            {isOpen ? <><WorkRounded /><ListItemText primary="Jobs" /></> : <WorkRounded />}
+            {isOpen ? <><ListItemIcon><WorkRounded /></ListItemIcon><ListItemText primary="Jobs" /></> : <WorkRounded />}
           </ListItemContent>
         </ListItem>
         <ListItem button component={Link} to="/categories">
           <ListItemContent>
-            {isOpen ? <><CategoryRounded /><ListItemText primary="Categories" /></> : <CategoryRounded />}
+            {isOpen ? <><ListItemIcon><CategoryRounded /></ListItemIcon><ListItemText primary="Categories" /></> : <CategoryRounded />}
           </ListItemContent>
         </ListItem>
         <ListItem button component={Link} to="/users">
           <ListItemContent>
-            {isOpen ? <><GroupRounded /><ListItemText primary="Users" /></> : <GroupRounded />}
+            {isOpen ? <><ListItemIcon><GroupRounded /></ListItemIcon><ListItemText primary="Users" /></> : <GroupRounded />}
           </ListItemContent>
         </ListItem>
       </List>
