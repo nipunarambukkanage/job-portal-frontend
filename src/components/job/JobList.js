@@ -53,18 +53,29 @@ function JobList({ onEdit, onDelete }) {
   }, [page, rowsPerPage, order, orderBy, search]);
 
   const fetchJobs = async () => {
-    const response = await jobApi.get('/', {
-      params: {
-        page,
-        limit: rowsPerPage,
-        sortBy: orderBy,
-        order,
-        search,
-      },
-    });
-    console.log("response*********", response);
-    setJobs(response.data);
-    setTotal(response.data.length);
+    try {
+      const response = await jobApi.get('/', {
+        params: {
+          page,
+          limit: rowsPerPage,
+          sortBy: orderBy,
+          order,
+          search,
+        },
+      });
+      console.log("response*********", response);
+
+      if (Array.isArray(response.data)) {
+        setJobs(response.data);
+        setTotal(response.data.length);
+      } else {
+        console.error('Response data is not an array:', response.data);
+        setJobs([]);
+      }
+    } catch (error) {
+      console.error('Failed to fetch jobs:', error);
+      setJobs([]);
+    }
   };
 
   const handleRequestSort = (property) => {
