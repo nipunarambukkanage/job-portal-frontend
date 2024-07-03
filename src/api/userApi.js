@@ -10,14 +10,24 @@ const userApi = axios.create({
 });
 
 // Function to fetch all users
-export const getAllUsers = async () => {
-  try {
-    const response = await userApi.get('/');
-    return response.data;
-  } catch (error) {
-    throw error.response.data;
-  }
+// export const getAllUsers = async () => {
+//   try {
+//     const response = await userApi.get('/');
+//     return response.data;
+//   } catch (error) {
+//     throw error.response.data;
+//   }
+// };
+
+export const getAllUsers = async (token) => {
+  const response = await axios.get('/api/users', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
 };
+
 
 // Function to fetch a single user by ID
 export const getUserById = async (id) => {
@@ -50,3 +60,5 @@ export const deleteUser = async (id) => {
 };
 
 export default userApi;
+
+
