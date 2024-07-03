@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:5000/api/categories'; // Replace 'your-backend-url' with your actual backend URL
+const baseURL = 'http://localhost:5001/api/categories'; // Replace 'your-backend-url' with your actual backend URL
 
 const categoryApi = axios.create({
   baseURL,

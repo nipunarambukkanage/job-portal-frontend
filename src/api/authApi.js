@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:5000/api/auth'; // change this
+const baseURL = 'http://localhost:5001/api/auth'; // change this
 
 const authApi = axios.create({
   baseURL,
