@@ -63,11 +63,10 @@ function JobList({ onEdit, onDelete }) {
           search,
         },
       });
-      console.log("response*********", response);
 
-      if (Array.isArray(response.data)) {
-        setJobs(response.data);
-        setTotal(response.data.length);
+      if (Array.isArray(response?.data?.jobs)) {
+        setJobs(response?.data?.jobs);
+        setTotal(response.data.total);
       } else {
         console.error('Response data is not an array:', response.data);
         setJobs([]);
