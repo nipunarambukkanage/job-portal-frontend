@@ -12,6 +12,10 @@ const listItemSecondaryStyle = {
   left: '-16px !important',
 };
 
+// function onEdit(id){
+//    console.log("id---->", id);
+// }
+
 function JobItem({ job, onEdit, onDelete }) {
   const { _id, title, company, location } = job;
 

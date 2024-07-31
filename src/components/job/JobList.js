@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import SearchIcon from '@material-ui/icons/Search';
 import jobApi from '../../api/jobApi';
+import EditJobModal from './EditJobModal';
+import ConfirmDeleteModal from './ConfirmDeleteModal';
 
 const useStyles = makeStyles((theme) => ({
   jobListContainerOpen: {
@@ -36,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function JobList({ onEdit, onDelete }) {
+function JobList() {
   const isSidebarOpen = useSelector((state) => state.sidebar.isOpen);
   const classes = useStyles({ isSidebarOpen });
 
@@ -47,10 +49,53 @@ function JobList({ onEdit, onDelete }) {
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('name');
   const [search, setSearch] = useState('');
+  const [selectedJob, setSelectedJob] = useState(null);
+  const [jobToDelete, setJobToDelete] = useState(null);
 
   useEffect(() => {
     fetchJobs();
   }, [page, rowsPerPage, order, orderBy, search]);
+
+  const onEdit = (id) => {
+    // Find the job by ID and set it as selected
+    const job = jobs.find(job => job._id === id);
+    setSelectedJob(job);
+  };
+
+  const onDelete = (id) => {
+    // Handle job deletion
+    // You might want to call an API to delete the job here
+  };
+
+  const handleDelete = (id) => {
+    const job = jobs.find(job => job._id === id);
+    setJobToDelete(job);
+  };
+
+  const handleConfirmDelete = (id) => {
+    // Logic to delete the job
+    console.log('Job deleted:', id);
+    setJobToDelete(null);
+  };
+
+  const handleEdit = (id) => {
+    const job = jobs.find(job => job._id === id);
+    setSelectedJob(job);
+  };
+
+  const handleSave = (id, updatedJob) => {
+    // Logic to save the updated job details
+    console.log('Updated job:', id, updatedJob);
+  };
+
+  const handleClose = () => {
+    setSelectedJob(null);
+    setJobToDelete(null);
+  };
+
+  const handleModalClose = () => {
+    setSelectedJob(null);
+  };
 
   const fetchJobs = async () => {
     try {
@@ -93,6 +138,20 @@ function JobList({ onEdit, onDelete }) {
 
   return (
     <div className={isSidebarOpen ? classes.jobListContainerOpen : classes.jobListContainerClosed}>
+      {selectedJob && (
+        <EditJobModal
+          job={selectedJob}
+          onClose={handleClose}
+          onSave={handleSave}
+        />
+      )}
+      {jobToDelete && (
+        <ConfirmDeleteModal
+          job={jobToDelete}
+          onClose={handleClose}
+          onConfirm={handleConfirmDelete}
+        />
+      )}
       <div className={classes.search}>
         <TextField
           label="Search"
